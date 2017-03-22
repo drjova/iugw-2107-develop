@@ -7,10 +7,13 @@
 		<title>IUGW2017</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/iuwg.css">
+		<link rel="stylesheet" href="css/theme/iugw.css">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/github.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/notify.js"></script>
+    <script src="js/clipboard.js"></script>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,10 +27,70 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>
-		          <h1>IUGW17</h1>
-		          <p>Presentation Title</p>
-		        </section>
+        <section>
+          <h3>Before we begin</h3>
+          <small><a target="_blank" href="https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites">https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites</a></small>
+          <small>Initialize Vagrant</small>
+          <pre><code data-trim=""  data-noescape>
+            $ sudo mount /dev/sdb1 /mnt
+            $ vagrant box add -n iugw2017-demosite-web /mnt/iugw2017-demositewithcustomdata-web.box
+          </code></pre>
+          <small>Start Vagrant</small>
+          <pre><code data-trim="" contenteditable="">
+          $ git clone https://github.com/inveniosoftware/iugw2017
+          $ cd iugw2017
+          $ vagrant up
+          </code></pre>
+        </section>
+        <section>
+          <h4>Login to the vagrant VM</h4>
+          <pre><code data-trim=""  contenteditable="" data-noescape>
+            $ vagrant destroy
+          </code></pre>
+          <pre><code data-trim="" contenteditable="" data-noescape>
+            # Vagrantfile for IUGW2017.
+
+            Vagrant.configure("2") do |config|
+
+              if Vagrant.has_plugin?("vagrant-cachier")
+                config.cache.scope = :box
+              end
+
+              config.vm.define "web" do |web|
+                <mark>web.vm.box = "iugw2017-demositewithcustomdata-web"</mark>
+                ....
+                end
+              end
+            end
+        </code></pre>
+        <pre><code data-trim=""  data-noescape>
+            $ vagrant up
+        </code></pre>
+      </section>
+        <section>
+          <h1>IUGW17</h1>
+        </section>
+        <section>
+          <h1>Develop</h1>
+          <p>Developer guide</p>
+        </section>
+        <section>
+          <h3>The goal of this tutorial</h3>
+          <p>Create module for Invenio v3</p>
+          <p>
+            <br />
+            <a target="_blank" class="call-for-action-clean" href="http://invenio.readthedocs.io/en/iugw2017/developersguide/tutorial/develop.html">
+              <small>http://invenio.readthedocs.io/en/iugw2017/developersguide/tutorial/develop.html</small>
+            </a>
+          </p>
+        </section>
+        <section>
+          <h3>Open the following link</h3>
+          <p>
+            <br />
+            <strong><a target="_blank" class="call-for-action-white" href="https://goo.gl/PrlF08">goo.gl/PrlF08</a></strong>
+          </p>
+        </section>
 				<section>
 		          <h2>Bootstrapping with cookiecutter</h2>
 		        </section>
@@ -38,6 +101,9 @@
 		        		$ pip install -U cookiecutter
 		        		$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
 		        	</code></pre>
+              <button class="copy silver-flat-button" data-clipboard-text='pip install -U cookiecutter; cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git'>
+                Copy to clipboard
+              </button>
 		        </section>
 		        <section>
 		        	<p>Fill the form with these values:</p>
@@ -155,5 +221,12 @@
 				]
 			});
 		</script>
+    <script>
+      // Initialize clipoard
+      var clipboard = new Clipboard('.copy');
+      clipboard.on('success', function(e) {
+        $.notify("Copied", "success");
+      });
+    </script>
 	</body>
 </html>

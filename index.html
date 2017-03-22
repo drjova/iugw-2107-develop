@@ -25,17 +25,116 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-          <h1>IUGW17</h1>
-          <p>Presentation Title</p>
-        </section>
+		          <h1>IUGW17</h1>
+		          <p>Presentation Title</p>
+		        </section>
 				<section>
-          <pre><code data-trim data-noescape>
-for (var i=0; i<10; i+=1) {
- for (var j=0; j<10; j+=1) {
-   console.log(i, j);
- }
-}</code></pre>
-        </section>
+		          <h2>Bootstrapping with cookiecutter</h2>
+		        </section>
+		        <section>
+		        	<p>Install Cookiecutter</p>
+		        	<p>Create a module template:</p>
+		        	<pre><code data-trim="" contenteditable="">
+		        		$ pip install -U cookiecutter
+		        		$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<p>Fill the form with these values:</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
+						    project_name [Invenio-FunGenerator]: Invenio-Unicorn
+						    project_shortname [invenio-unicorn]:
+						    package_name [invenio_unicorn]:
+						    github_repo [inveniosoftware/invenio-unicorn]:
+						    description [Invenio module that adds more fun to the platform.]:
+						    author_name [CERN]: Nice Unicorn
+						    author_email [info@inveniosoftware.org]: nice@unicorn.com
+						    year [2017]:
+						    copyright_holder [Nice Unicorn]:
+						    copyright_by_intergovernmental [True]: False
+						    superproject [Invenio]:
+						    transifex_project [invenio-unicorn]:
+						    extension_class [InvenioUnicorn]:
+						    config_prefix [UNICORN]:
+					</code></pre>
+		        </section>
+		        <section>
+		        	<p>This creates a folder <em>invenio-unicorn</em> where you can go</p>
+		        </section>
+		        <section>
+		        	<h2>Install, run and test</h2>
+		        </section>
+		        <section>
+		        	<h2>Install the module</h2>
+		        	<pre><code data-trim="" contenteditable="">
+		        		$ pip install -e .[all]
+		        	</code></pre>
+		        	<ul>
+		        		<li><code>-e</code> for development (no need to reinstall)</li>
+		        		<li><code>.</code> to install the current directory</li>
+		        		<li><code>[all]</code> to install all the requirements</li>
+		        		<ul><li>equivalent to <code>[docs,tests]</code></li></ul>
+		        	</ul>
+		        </section>
+		        <section>
+		        	<h2>Run the tests</h2>
+		        	<p>First, initialize a git repo and update the <code>MANIFEST.in</code> file (used during installation)</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git init
+						$ git add -A
+						$ check-manifest -u
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Run the tests</h2>
+		        	<p>Run the tests and cross fingers</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ ./run-tests.sh
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Run the example app</h2>
+		        	<p>First, <code>cd</code> in the <code>examples</code>:</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ cd examples
+						$ ./app-setup.sh
+						$ ./app-fixtures.sh
+						$ export FLASK_APP=app.py FLASK_DEBUG=1
+						$ flask run
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Run the example app</h2>
+		        	<p>The example is running at <a href="http://192.168.50.10"><code>http://192.168.50.10</code></a></p>
+		        	<p>Terminate the server and run this command to clean everything (DON'T FORGET TO DO IT)</p>
+					<pre><code data-trim="" contenteditable="">
+		        		$ ./app-teardown.sh
+		        		$ cd ..
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Build the documentation</h2>
+		        	<p>From the root folder of your module</p>
+		        	<pre><code data-trim="" contenteditable="">
+		        		$ python setup.py build_sphinx
+		        	</code></pre>
+		        	<p>Documentation is built into <code>docs/_build/html</code></p>
+		        </section>
+		        <section>
+		        	<h2>Before going further!</h2>
+		        	<p>Create an empty GitHub repository...</p>
+		        </section>
+		        <section>
+		        	<h2>Before going further!</h2>
+		        	<p>Commit the empty module and create a branch:</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git remote add origin URL OF YOUR GITHUB REPO
+						$ git commit -am "first commit"
+						$ git push --set-upstream origin master
+						$ git checkout -b dev
+		        	</code></pre>
+		        </section>
 			</div>
 		</div>
 

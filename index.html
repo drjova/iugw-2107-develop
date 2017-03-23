@@ -30,20 +30,15 @@
         <section>
           <h3>Before we begin</h3>
           <small><a target="_blank" href="https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites">https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites</a></small>
-          <small>Initialize Vagrant</small>
-          <pre><code data-trim=""  data-noescape>
+          <br />
+          <small>Initialize Vagrant with <mark>iugw2017-demositewithcustomdata-web.box</mark></small>
+          <pre><code style="font-size: 0.7em!important" data-trim=""  data-noescape>
             $ sudo mount /dev/sdb1 /mnt
             $ vagrant box add -n iugw2017-demosite-web /mnt/iugw2017-demositewithcustomdata-web.box
           </code></pre>
-          <small>Start Vagrant</small>
-          <pre><code data-trim="" contenteditable="">
-          $ git clone https://github.com/inveniosoftware/iugw2017
-          $ cd iugw2017
-          $ vagrant up
-          </code></pre>
         </section>
         <section>
-          <h4>Login to the vagrant VM</h4>
+          <h4>Edit your Vagrantfile</h4>
           <pre><code data-trim=""  contenteditable="" data-noescape>
             $ vagrant destroy
           </code></pre>
@@ -77,6 +72,16 @@
         <section>
           <h3>The goal of this tutorial</h3>
           <p>Create module for Invenio v3</p>
+          <small>
+            <p>We will touch the following:</p>
+            <ul>
+                <li>How to create a new view</li>
+                <li>How to create a form</li>
+                <li>How to add a utility function</li>
+                <li>How to add new templates</li>
+                <li>How to use Jinja2</li>
+            </ul>
+          </small>
           <p>
             <br />
             <a target="_blank" class="call-for-action-clean" href="http://invenio.readthedocs.io/en/iugw2017/developersguide/tutorial/develop.html">
@@ -201,8 +206,403 @@
 						$ git checkout -b dev
 		        	</code></pre>
 		        </section>
+      <!-- Develop part -->
+      <section>
+        <h1>Develop</h1>
+      </section>
+        <section data-background-image="lib/img/dont-try.gif">
+          <h3>Don't try this example on production!</h3>
+        </section>
+      <!-- Create form -->
+      <section>
+        <h3>Add a form</h3>
+      </section>
+      <section>
+        <h3 class="no-transform">Add a form</h3>
+        <small>
+          Create the file
+        </small>
+        <small>
+          <mark>~/invenio-unicorn/invenio_unicorn/forms.py</mark>
+        </small>
+      </section>
+      <section>
+        <h3 class="no-transform">Add a form</h3>
+        <small>
+          paste on <mark>~/invenio-unicorn/invenio_unicorn/forms.py</mark>
+        </small>
+        <pre><code data-trim="" data-editable="" data-noescape>
+          """Forms module."""
+
+          from __future__ import absolute_import, print_function
+
+          from flask_wtf import FlaskForm
+          from wtforms import StringField, TextAreaField, validators
+
+
+          class RecordForm(FlaskForm):
+            """Custom record form."""
+
+            title = StringField(
+                'Title', [validators.DataRequired()]
+            )
+            description = TextAreaField(
+                'Description', [validators.DataRequired()]
+            )
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='
+"""Forms module."""
+
+from __future__ import absolute_import, print_function
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, validators
+
+
+class RecordForm(FlaskForm):
+  """Custom record form."""
+
+  title = StringField(
+      "Title", [validators.DataRequired()]
+  )
+  description = TextAreaField(
+      "Description", [validators.DataRequired()]
+  )
+'>
+            Copy to clipboard
+        </button>
+      </section>
+      <section>
+        <h3 class="no-transform">Troubles?</h3>
+        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+          $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/forms.py ~/invenio-unicorn/invenio_unicorn/
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/forms.py ~/invenio-unicorn/invenio_unicorn/'>
+          Copy to clipboard
+        </button>
+      </section>
+      <!-- Create form -->
+      <!-- Create view -->
+      <section>
+        <h3>Add views</h3>
+      </section>
+      <section>
+        <h3 class="no-transform">Add views</h3>
+        <small>
+          Open the file
+        </small>
+        <small>
+          <mark>~/invenio-unicorn/invenio_unicorn/views.py</mark>
+        </small>
+      </section>
+      <section>
+        <h3 class="no-transform">Add views</h3>
+        <small>
+          <mark>replace</mark> on <mark>~/invenio-unicorn/invenio_unicorn/views.py</mark>
+        </small>
+        <pre><code data-trim="" data-editable="" data-noescape>
+        """Invenio module that adds more fun to the platform."""
+
+        from __future__ import absolute_import, print_function
+
+        from flask import Blueprint, redirect, render_template, request, url_for
+        from flask_babelex import gettext as _
+
+        from .forms import RecordForm
+        from .utils import create_record
+
+        blueprint = Blueprint(
+            'invenio_unicorn',
+            __name__,
+            template_folder='templates',
+            static_folder='static',
+        )
+
+
+        @blueprint.route("/")
+        def index():
+            """Basic view."""
+            return render_template(
+                "invenio_unicorn/index.html",
+                module_name=_('Invenio-Unicorn'))
+
+
+        @blueprint.route('/create', methods=['GET', 'POST'])
+        def create():
+            """The create view."""
+            form = RecordForm()
+            # if the form is valid
+            if form.validate_on_submit():
+                # create the record
+                create_record(
+                  dict(
+                    title=form.title.data,
+                    description=form.description.data
+                  )
+                )
+                # redirect to the success page
+                return redirect(url_for('invenio_unicorn.success'))
+            return render_template('invenio_unicorn/create.html', form=form)
+
+
+        @blueprint.route("/success")
+        def success():
+            """The success view."""
+            return render_template('invenio_unicorn/success.html')
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='
+"""Invenio module that adds more fun to the platform."""
+
+from __future__ import absolute_import, print_function
+
+from flask import Blueprint, redirect, render_template, request, url_for
+from flask_babelex import gettext as _
+
+from .forms import RecordForm
+from .utils import create_record
+
+blueprint = Blueprint(
+    "invenio_unicorn",
+    __name__,
+    template_folder="templates",
+    static_folder="static",
+)
+
+
+@blueprint.route("/")
+def index():
+    """Basic view."""
+    return render_template(
+        "invenio_unicorn/index.html",
+        module_name=_("Invenio-Unicorn"))
+
+
+@blueprint.route("/create", methods=["GET", "POST"])
+def create():
+    """The create view."""
+    form = RecordForm()
+    # if the form is valid
+    if form.validate_on_submit():
+        # create the record
+        create_record(
+          dict(
+            title=form.title.data,
+            description=form.description.data
+          )
+        )
+        # redirect to the success page
+        return redirect(url_for("invenio_unicorn.success"))
+    return render_template("invenio_unicorn/create.html", form=form)
+
+
+@blueprint.route("/success")
+def success():
+    """The success view."""
+    return render_template("invenio_unicorn/success.html")
+
+      '>
+            Copy to clipboard
+        </button>
+      </section>
+      <section>
+        <h3 class="no-transform">Troubles?</h3>
+        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+          $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/views.py ~/invenio-unicorn/invenio_unicorn/
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/views.py ~/invenio-unicorn/invenio_unicorn/'>
+          Copy to clipboard
+        </button>
+      </section>
+      <!-- Create view -->
+
+      <!-- Create utils -->
+      <section>
+        <h3>Add utils</h3>
+      </section>
+      <section>
+        <h3 class="no-transform">Add utils</h3>
+        <small>
+          Create the file
+        </small>
+        <small>
+          <mark>~/invenio-unicorn/invenio_unicorn/utils.py</mark>
+        </small>
+      </section>
+      <section>
+        <h3 class="no-transform">Add utils</h3>
+        <small>
+          <mark>paste</mark> on <mark>~/invenio-unicorn/invenio_unicorn/utils.py</mark>
+        </small>
+        <pre><code data-trim="" data-editable="" data-noescape>
+          """Utils module."""
+
+          from __future__ import absolute_import, print_function
+
+          import uuid
+
+          from flask import current_app
+
+          from invenio_db import db
+          from invenio_indexer.api import RecordIndexer
+          from invenio_pidstore import current_pidstore
+          from invenio_records.api import Record
+
+
+          def create_record(data):
+              """Create a record.
+
+              :param dict data: The record data.
+              """
+              indexer = RecordIndexer()
+              with db.session.begin_nested():
+                  # create uuid
+                  rec_uuid = uuid.uuid4()
+                  # add the schema
+                  host = current_app.config.get('JSONSCHEMAS_HOST')
+                  data["$schema"] = \
+                      current_app.extensions['invenio-jsonschemas'].path_to_url(
+                      'custom_record/custom-record-v1.0.0.json')
+                  # create PID
+                  current_pidstore.minters['custid'](
+                    rec_uuid, data, pid_value='custom_pid_{}'.format(rec_uuid)
+                  )
+                  # create record
+                  created_record = Record.create(data, id_=rec_uuid)
+                  # index the record
+                  indexer.index(created_record)
+              db.session.commit()
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='
+"""Utils module."""
+
+from __future__ import absolute_import, print_function
+
+import uuid
+
+from flask import current_app
+
+from invenio_db import db
+from invenio_indexer.api import RecordIndexer
+from invenio_pidstore import current_pidstore
+from invenio_records.api import Record
+
+
+def create_record(data):
+    """Create a record.
+
+    :param dict data: The record data.
+    """
+    indexer = RecordIndexer()
+    with db.session.begin_nested():
+        # create uuid
+        rec_uuid = uuid.uuid4()
+        # add the schema
+        host = current_app.config.get("JSONSCHEMAS_HOST")
+        data["$schema"] = \
+            current_app.extensions["invenio-jsonschemas"].path_to_url(
+            "custom_record/custom-record-v1.0.0.json")
+        # create PID
+        current_pidstore.minters["custid"](
+          rec_uuid, data, pid_value="custom_pid_{}".format(rec_uuid)
+        )
+        # create record
+        created_record = Record.create(data, id_=rec_uuid)
+        # index the record
+        indexer.index(created_record)
+    db.session.commit()
+
+      '>
+            Copy to clipboard
+        </button>
+      </section>
+      <section>
+        <h3 class="no-transform">Troubles?</h3>
+        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+          $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/utils.py ~/invenio-unicorn/invenio_unicorn/
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/utils.py ~/invenio-unicorn/invenio_unicorn/'>
+          Copy to clipboard
+        </button>
+      </section>
+      <!-- Create utils -->
+      <!-- Almost there -->
+      <section>
+        <h3>Almost there</h3>
+      </section>
+      <!-- Almost there -->
+      <!-- Copy templates -->
+      <section>
+        <h3>Add templates</h3>
+      </section>
+      <section>
+        <h3 class="no-transform">Add templates</h3>
+        <small>create.html</small>
+        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+          $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html'>
+          Copy to clipboard
+        </button>
+      </section>
+      <section>
+        <h3 class="no-transform">Add templates</h3>
+        <small>success.html</small>
+        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+          $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html'>
+          Copy to clipboard
+        </button>
+      </section>
+      <!-- Copy templates -->
+      <!-- Ready -->
+      <section>
+        <h3 class="no-transform">Change homepage</h3>
+        <p>now run on your terminal</p>
+        <pre><code data-trim=""  data-noescape>
+          $ invenio run -h 0.0.0.0
+        </code></pre>
+        <button class="copy silver-flat-button" data-clipboard-text='invenio run -h 0.0.0.0'>
+        Copy to clipboard
+        </button>
+      </section>
+      <section>
+        <h4>Now open on your browser</h4>
+        <a target="_blank" class="call-for-action-clean" href="http://192.168.50.10/create">
+        http://192.168.50.10/create
+        </a>
+      </section>
+      <!-- /Ready -->
+      <section data-background-image="lib/img/form.png"></section>
+      <!-- Develop part -->
+      <!-- Enable travis & github -->
+      <section>
+        <h1>Enable travis-cli and publish to GitHub</h1>
+      </section>
+      <section>
+        <h3 class="no-transform">Configure travis-cli.org</h3>
+      </section>
+      <section>
+        <h3 class="no-transform">Configure travis-cli.org</h3>
+        <small>We need first to create an account on <a class="call-for-action-clean" href="http://travis-cli.org">travis-cli.org</a>.</small>
+      </section>
+      <section data-background-image="lib/img/travis-signup.png" data-background-size="contain"></section>
+      <section data-background-image="lib/img/travis-credentials.png" data-background-size="contain"></section>
+      <section>
+        <h3 class="no-transform">Configure travis-cli.org</h3>
+        <small>Enable travis for your repo.</small>
+      </section>
+      <section data-background-image="lib/img/travis-account.png" data-background-size="contain"></section>
+      <section data-background-image="lib/img/travis-click-to-enable.png" data-background-size="contain"></section>
+      <section>
+        <h3 class="no-transform">Create a Pull Request (PR)</h3>
+      </section>
+      <section data-background-image="lib/img/branch.png" data-background-size="contain"></section>
+      <section data-background-image="lib/img/pr.png" data-background-size="contain"></section>
+      <!-- Enable travis & github -->
 			</div>
 		</div>
+
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
@@ -211,7 +611,7 @@
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
-
+        slideNumber: true,
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
@@ -227,6 +627,16 @@
       clipboard.on('success', function(e) {
         $.notify("Copied", "success");
       });
+      $(document).ready(function() {
+
+      	$('ul.tabs li').click(function(){
+      		var tab_id = $(this).attr('data-tab');
+      		$('ul.tabs li').removeClass('current');
+      		$('.tab-content').removeClass('current');
+      		$(this).addClass('current');
+      		$("#"+tab_id).addClass('current');
+      	});
+      })
     </script>
 	</body>
 </html>

@@ -58,12 +58,34 @@ mark {
     box-shadow: none; }
 
 code {
-  font-size: 0.85em !important;
-  max-height: 600px; }
+  font-size: 0.85em !important; }
 
 .reveal pre code {
   font-size: 0.85em !important;
-  max-height: 600px !important; }
+  max-height: 400px !important; }
+
+ul.tabs {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
+
+ul.tabs li {
+  background: none;
+  color: #fff;
+  font-size: 12px;
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer; }
+
+ul.tabs li.current {
+  background: #ededed;
+  color: #3d687d; }
+
+.tab-content {
+  display: none; }
+
+.tab-content.current {
+  display: inherit; }
 
 /*********************************************
  * GLOBAL STYLES

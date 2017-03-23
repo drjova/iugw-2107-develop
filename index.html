@@ -100,8 +100,10 @@
         			<h2>Stop any running Invenio</h2>
         			<pre><code data-trim="" contenteditable="">
 		        		$ killall invenio
+		        		$ workon invenio
+		        		$ cd ~
 		        	</code></pre>
-              		<button class="copy silver-flat-button" data-clipboard-text='killall invenio'>
+              		<button class="copy silver-flat-button" data-clipboard-text='killall invenio; workon invenio; cd ~'>
                 		Copy to clipboard
             		</button>
         		</section>
@@ -121,9 +123,9 @@
 		        </section>
 		        <section>
 		        	<p>Fill the form with these values:</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-noescape>
 						$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
-						    project_name [Invenio-FunGenerator]: Invenio-Unicorn
+						    <mark>project_name [Invenio-FunGenerator]: Invenio-Unicorn</mark>
 						    project_shortname [invenio-unicorn]:
 						    package_name [invenio_unicorn]:
 						    github_repo [inveniosoftware/invenio-unicorn]:
@@ -140,7 +142,7 @@
 					</code></pre>
 		        </section>
 		        <section>
-		        	<p>This creates a folder <em>invenio-unicorn</em> where you can go</p>
+		        	<p>This initializes the Invenio-Unicorn module.</p>
 		        </section>
 		        <section>
 		        	<h2>Install, run and test</h2>
@@ -148,9 +150,10 @@
 		        <section>
 		        	<h2>Install the module</h2>
 		        	<pre><code data-trim="" contenteditable="">
+		        		$ cd ~/invenio-unicorn
 		        		$ pip install -e .[all]
 		        	</code></pre>
-		        	<button class="copy silver-flat-button" data-clipboard-text='pip install -e .[all]'>
+		        	<button class="copy silver-flat-button" data-clipboard-text='cd ~/invenio-unicorn; pip install -e .[all]'>
                 		Copy to clipboard
             		</button>
 		        	<ul>
@@ -239,48 +242,6 @@
             		</button>
 		        </section>
 
-		        <!-- DEV PART -->
-		        <section>
-		        	<h2>Push the code to GitHub</h2>
-		        </section>
-		        <section>
-		        	<h2>Prepare the commit</h2>
-		        	<pre><code data-trim="" contenteditable="">
-						$ git status
-						$ # shows all the files that have been modified
-						$ git add .
-						$ # adds all the modifications
-		        	</code></pre>
-		        </section>
-		        <section>
-		        	<h2>Run the tests</h2>
-		        	<pre><code data-trim="" contenteditable="">
-						$ ./run-tests.sh
-		        	</code></pre>
-		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
-                		Copy to clipboard
-            		</button>
-		        </section>
-		        <section>
-		        	<h2>Commit your work</h2>
-		        	<p>to save it into our Git repository</p>
-		        	<pre><code data-trim="" contenteditable="">
-						$ ./run-tests.sh
-		        	</code></pre>
-		        	<button class="copy silver-flat-button" data-clipboard-text='git commit -am "basic development"'>
-                		Copy to clipboard
-            		</button>
-		        </section>
-		        <section>
-		        	<h2>Push the code on GitHub</h2>
-		        	<p>We also need to push our <code>dev</code> branch</p>
-		        	<pre><code data-trim="" contenteditable="">
-						$ git push --set-upstream origin dev
-		        	</code></pre>
-		        	<button class="copy silver-flat-button" data-clipboard-text='git push --set-upstream origin dev'>
-                		Copy to clipboard
-            		</button>
-		        </section>
       <!-- Develop part -->
       <section>
         <h1>Develop</h1>
@@ -632,7 +593,7 @@ def create_record(data):
       <!-- Copy templates -->
       <!-- Ready -->
       <section>
-        <h3 class="no-transform">Change homepage</h3>
+        <h3 class="no-transform">Develop</h3>
         <p>now run on your terminal</p>
         <pre><code data-trim=""  data-noescape>
           $ invenio run -h 0.0.0.0
@@ -650,6 +611,47 @@ def create_record(data):
       <!-- /Ready -->
       <section data-background-image="lib/img/form.png"></section>
       <!-- Develop part -->
+      <section>
+		        	<h2>Push the code to GitHub</h2>
+		        </section>
+		        <section>
+		        	<h2>Prepare the commit</h2>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git status
+						$ # shows all the files that have been modified
+						$ git add .
+						$ # adds all the modifications
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Run the tests</h2>
+		        	<pre><code data-trim="" contenteditable="">
+						$ ./run-tests.sh
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
+                		Copy to clipboard
+            		</button>
+		        </section>
+		        <section>
+		        	<h2>Commit your work</h2>
+		        	<p>to save it into our Git repository</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git commit -am "basic development"
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git commit -am "basic development"'>
+                		Copy to clipboard
+            		</button>
+		        </section>
+		        <section>
+		        	<h2>Push the code on GitHub</h2>
+		        	<p>We also need to push our <code>dev</code> branch</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git push --set-upstream origin dev
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git push --set-upstream origin dev'>
+                		Copy to clipboard
+            		</button>
+		        </section>
       <!-- Enable travis & github -->
       <section>
         <h1>Enable travis-cli and publish to GitHub</h1>

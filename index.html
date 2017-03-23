@@ -96,6 +96,15 @@
             <strong><a target="_blank" class="call-for-action-white" href="https://goo.gl/PrlF08">goo.gl/PrlF08</a></strong>
           </p>
         </section>
+        		<section>
+        			<h2>Stop any running Invenio</h2>
+        			<pre><code data-trim="" contenteditable="">
+		        		$ killall invenio
+		        	</code></pre>
+              		<button class="copy silver-flat-button" data-clipboard-text='killall invenio'>
+                		Copy to clipboard
+            		</button>
+        		</section>
 				<section>
 		          <h2>Bootstrapping with cookiecutter</h2>
 		        </section>
@@ -106,9 +115,9 @@
 		        		$ pip install -U cookiecutter
 		        		$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
 		        	</code></pre>
-              <button class="copy silver-flat-button" data-clipboard-text='pip install -U cookiecutter; cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git'>
-                Copy to clipboard
-              </button>
+              		<button class="copy silver-flat-button" data-clipboard-text='pip install -U cookiecutter; cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git'>
+                		Copy to clipboard
+            		</button>
 		        </section>
 		        <section>
 		        	<p>Fill the form with these values:</p>
@@ -141,6 +150,9 @@
 		        	<pre><code data-trim="" contenteditable="">
 		        		$ pip install -e .[all]
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='pip install -e .[all]'>
+                		Copy to clipboard
+            		</button>
 		        	<ul>
 		        		<li><code>-e</code> for development (no need to reinstall)</li>
 		        		<li><code>.</code> to install the current directory</li>
@@ -156,6 +168,9 @@
 						$ git add -A
 						$ check-manifest -u
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git init; git add -A; check-manifest -u'>
+                		Copy to clipboard
+            		</button>
 		        </section>
 		        <section>
 		        	<h2>Run the tests</h2>
@@ -163,6 +178,9 @@
 		        	<pre><code data-trim="" contenteditable="">
 						$ ./run-tests.sh
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
+                		Copy to clipboard
+            		</button>
 		        </section>
 		        <section>
 		        	<h2>Run the example app</h2>
@@ -174,6 +192,9 @@
 						$ export FLASK_APP=app.py FLASK_DEBUG=1
 						$ flask run
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='cd examples; ./app-setup.sh; ./app-fixtures.sh; export FLASK_APP=app.py FLASK_DEBUG=1; flask run'>
+                		Copy to clipboard
+            		</button>
 		        </section>
 		        <section>
 		        	<h2>Run the example app</h2>
@@ -183,6 +204,9 @@
 		        		$ ./app-teardown.sh
 		        		$ cd ..
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='./app-teardown.sh; cd ..'>
+                		Copy to clipboard
+            		</button>
 		        </section>
 		        <section>
 		        	<h2>Build the documentation</h2>
@@ -190,6 +214,9 @@
 		        	<pre><code data-trim="" contenteditable="">
 		        		$ python setup.py build_sphinx
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='python setup.py build_sphinx'>
+                		Copy to clipboard
+            		</button>
 		        	<p>Documentation is built into <code>docs/_build/html</code></p>
 		        </section>
 		        <section>
@@ -201,10 +228,58 @@
 		        	<p>Commit the empty module and create a branch:</p>
 		        	<pre><code data-trim="" contenteditable="">
 						$ git remote add origin URL OF YOUR GITHUB REPO
+					</code></pre>
+					<pre><code data-trim="" contenteditable="">
 						$ git commit -am "first commit"
 						$ git push --set-upstream origin master
 						$ git checkout -b dev
 		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git commit -am "first commit"; git push --set-upstream origin master; git checkout -b dev'>
+                		Copy to clipboard
+            		</button>
+		        </section>
+
+		        <!-- DEV PART -->
+		        <section>
+		        	<h2>Push the code to GitHub</h2>
+		        </section>
+		        <section>
+		        	<h2>Prepare the commit</h2>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git status
+						$ # shows all the files that have been modified
+						$ git add .
+						$ # adds all the modifications
+		        	</code></pre>
+		        </section>
+		        <section>
+		        	<h2>Run the tests</h2>
+		        	<pre><code data-trim="" contenteditable="">
+						$ ./run-tests.sh
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
+                		Copy to clipboard
+            		</button>
+		        </section>
+		        <section>
+		        	<h2>Commit your work</h2>
+		        	<p>to save it into our Git repository</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ ./run-tests.sh
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git commit -am "basic development"'>
+                		Copy to clipboard
+            		</button>
+		        </section>
+		        <section>
+		        	<h2>Push the code on GitHub</h2>
+		        	<p>We also need to push our <code>dev</code> branch</p>
+		        	<pre><code data-trim="" contenteditable="">
+						$ git push --set-upstream origin dev
+		        	</code></pre>
+		        	<button class="copy silver-flat-button" data-clipboard-text='git push --set-upstream origin dev'>
+                		Copy to clipboard
+            		</button>
 		        </section>
       <!-- Develop part -->
       <section>

@@ -32,17 +32,17 @@
           <small><a target="_blank" href="https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites">https://github.com/inveniosoftware/iugw2017/tree/master/0-prerequisites</a></small>
           <br />
           <small>Initialize Vagrant with <mark>iugw2017-demositewithcustomdata-web.box</mark></small>
-          <pre><code style="font-size: 0.7em!important" data-trim=""  data-noescape>
+          <pre><code style="font-size: 0.7em!important" data-trim="" data-editable=""  data-noescape>
             $ sudo mount /dev/sdb1 /mnt
             $ vagrant box add -n iugw2017-demosite-web /mnt/iugw2017-demositewithcustomdata-web.box
           </code></pre>
         </section>
         <section>
           <h4>Edit your Vagrantfile</h4>
-          <pre><code data-trim=""  contenteditable="" data-noescape>
+          <pre><code data-trim="" data-editable=""  contenteditable="" data-noescape>
             $ vagrant destroy
           </code></pre>
-          <pre><code data-trim="" contenteditable="" data-noescape>
+          <pre><code data-trim="" data-editable="" contenteditable="" data-noescape>
             # Vagrantfile for IUGW2017.
 
             Vagrant.configure("2") do |config|
@@ -58,7 +58,7 @@
               end
             end
         </code></pre>
-        <pre><code data-trim=""  data-noescape>
+        <pre><code data-trim="" data-editable=""  data-noescape>
             $ vagrant up
         </code></pre>
       </section>
@@ -98,7 +98,7 @@
         </section>
         		<section>
         			<h2>Stop any running Invenio</h2>
-        			<pre><code data-trim="" contenteditable="">
+        			<pre><code data-trim="" data-editable="" contenteditable="">
 		        		$ killall invenio
 		        		$ workon invenio
 		        		$ cd ~
@@ -113,7 +113,7 @@
 		        <section>
 		        	<p>Install Cookiecutter</p>
 		        	<p>Create a module template:</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 		        		$ pip install -U cookiecutter
 		        		$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
 		        	</code></pre>
@@ -123,7 +123,7 @@
 		        </section>
 		        <section>
 		        	<p>Fill the form with these values:</p>
-		        	<pre><code data-trim="" data-noescape>
+		        	<pre><code data-trim="" data-editable="" data-noescape>
 						$ cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-module.git
 						    <mark>project_name [Invenio-FunGenerator]: Invenio-Unicorn</mark>
 						    project_shortname [invenio-unicorn]:
@@ -149,7 +149,7 @@
 		        </section>
 		        <section>
 		        	<h2>Install the module</h2>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 		        		$ cd ~/invenio-unicorn
 		        		$ pip install -e .[all]
 		        	</code></pre>
@@ -166,7 +166,7 @@
 		        <section>
 		        	<h2>Run the tests</h2>
 		        	<p>First, initialize a git repo and update the <code>MANIFEST.in</code> file (used during installation)</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git init
 						$ git add -A
 						$ check-manifest -u
@@ -178,7 +178,7 @@
 		        <section>
 		        	<h2>Run the tests</h2>
 		        	<p>Run the tests and cross fingers</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ ./run-tests.sh
 		        	</code></pre>
 		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
@@ -188,7 +188,7 @@
 		        <section>
 		        	<h2>Run the example app</h2>
 		        	<p>First, <code>cd</code> in the <code>examples</code>:</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ cd examples
 						$ ./app-setup.sh
 						$ ./app-fixtures.sh
@@ -203,7 +203,7 @@
 		        	<h2>Run the example app</h2>
 		        	<p>The example is running at <a href="http://192.168.50.10"><code>http://192.168.50.10</code></a></p>
 		        	<p>Terminate the server and run this command to clean everything (DON'T FORGET TO DO IT)</p>
-					<pre><code data-trim="" contenteditable="">
+					<pre><code data-trim="" data-editable="" contenteditable="">
 		        		$ ./app-teardown.sh
 		        		$ cd ..
 		        	</code></pre>
@@ -214,7 +214,7 @@
 		        <section>
 		        	<h2>Build the documentation</h2>
 		        	<p>From the root folder of your module</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 		        		$ python setup.py build_sphinx
 		        	</code></pre>
 		        	<button class="copy silver-flat-button" data-clipboard-text='python setup.py build_sphinx'>
@@ -229,10 +229,10 @@
 		        <section>
 		        	<h2>Before going further!</h2>
 		        	<p>Commit the empty module and create a branch:</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git remote add origin URL OF YOUR GITHUB REPO
 					</code></pre>
-					<pre><code data-trim="" contenteditable="">
+					<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git commit -am "first commit"
 						$ git push --set-upstream origin master
 						$ git checkout -b dev
@@ -310,7 +310,7 @@ class RecordForm(FlaskForm):
       </section>
       <section>
         <h3 class="no-transform">Troubles?</h3>
-        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+        <pre><code style="font-size: 0.6em!important" data-trim="" data-editable=""  data-noescape>
           $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/forms.py ~/invenio-unicorn/invenio_unicorn/
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/forms.py ~/invenio-unicorn/invenio_unicorn/'>
@@ -442,7 +442,7 @@ def success():
       </section>
       <section>
         <h3 class="no-transform">Troubles?</h3>
-        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+        <pre><code style="font-size: 0.6em!important" data-trim="" data-editable=""  data-noescape>
           $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/views.py ~/invenio-unicorn/invenio_unicorn/
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/views.py ~/invenio-unicorn/invenio_unicorn/'>
@@ -553,7 +553,7 @@ def create_record(data):
       </section>
       <section>
         <h3 class="no-transform">Troubles?</h3>
-        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+        <pre><code style="font-size: 0.6em!important" data-trim="" data-editable=""  data-noescape>
           $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/utils.py ~/invenio-unicorn/invenio_unicorn/
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/utils.py ~/invenio-unicorn/invenio_unicorn/'>
@@ -573,7 +573,7 @@ def create_record(data):
       <section>
         <h3 class="no-transform">Add templates</h3>
         <small>create.html</small>
-        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+        <pre><code style="font-size: 0.6em!important" data-trim="" data-editable=""  data-noescape>
           $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/create.html'>
@@ -583,7 +583,7 @@ def create_record(data):
       <section>
         <h3 class="no-transform">Add templates</h3>
         <small>success.html</small>
-        <pre><code style="font-size: 0.6em!important" data-trim=""  data-noescape>
+        <pre><code style="font-size: 0.6em!important" data-trim="" data-editable=""  data-noescape>
           $ cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='cp /vagrant/5-develop/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html ~/invenio-unicorn/invenio_unicorn/templates/invenio_unicorn/success.html'>
@@ -595,7 +595,7 @@ def create_record(data):
       <section>
         <h3 class="no-transform">Develop</h3>
         <p>now run on your terminal</p>
-        <pre><code data-trim=""  data-noescape>
+        <pre><code data-trim="" data-editable=""  data-noescape>
           $ invenio run -h 0.0.0.0
         </code></pre>
         <button class="copy silver-flat-button" data-clipboard-text='invenio run -h 0.0.0.0'>
@@ -616,7 +616,7 @@ def create_record(data):
 		        </section>
 		        <section>
 		        	<h2>Prepare the commit</h2>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git status
 						$ # shows all the files that have been modified
 						$ git add .
@@ -625,7 +625,7 @@ def create_record(data):
 		        </section>
 		        <section>
 		        	<h2>Run the tests</h2>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ ./run-tests.sh
 		        	</code></pre>
 		        	<button class="copy silver-flat-button" data-clipboard-text='./run-tests.sh'>
@@ -635,7 +635,7 @@ def create_record(data):
 		        <section>
 		        	<h2>Commit your work</h2>
 		        	<p>to save it into our Git repository</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git commit -am "basic development"
 		        	</code></pre>
 		        	<button class="copy silver-flat-button" data-clipboard-text='git commit -am "basic development"'>
@@ -645,7 +645,7 @@ def create_record(data):
 		        <section>
 		        	<h2>Push the code on GitHub</h2>
 		        	<p>We also need to push our <code>dev</code> branch</p>
-		        	<pre><code data-trim="" contenteditable="">
+		        	<pre><code data-trim="" data-editable="" contenteditable="">
 						$ git push --set-upstream origin dev
 		        	</code></pre>
 		        	<button class="copy silver-flat-button" data-clipboard-text='git push --set-upstream origin dev'>
@@ -676,6 +676,10 @@ def create_record(data):
       </section>
       <section data-background-image="lib/img/branch.png" data-background-size="contain"></section>
       <section data-background-image="lib/img/pr.png" data-background-size="contain"></section>
+      <section data-background-image="lib/img/travis-success.png" data-background-size="contain"></section>
+      <section>
+        <h1>Thank you</h1>
+      </section>
       <!-- Enable travis & github -->
 			</div>
 		</div>
